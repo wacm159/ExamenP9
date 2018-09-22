@@ -5,6 +5,9 @@
 }
 
 <h2>Index</h2>
+<p>
+    @Html.ActionLink("Principal", "http://localhost:58924")
+</p>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -29,29 +32,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hora)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color.color1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ensamble.pais)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gama.gama1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_telefono }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_telefono }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_telefono })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_ensamble)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_gama)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_telefono }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id_telefono }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_telefono })
+            </td>
 
+        </tr>
+
+    }
+    
 </table>
