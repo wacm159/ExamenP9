@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TelefonosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Celular">
+          <Key>
+            <PropertyRef Name="id_telefono" />
+          </Key>
+          <Property Name="id_telefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_gama" Type="int" Nullable="false" />
+          <Property Name="id_ensamble" Type="int" Nullable="false" />
+          <Property Name="id_color" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="hora" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="id_color" />
+          </Key>
+          <Property Name="id_color" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ensamble">
+          <Key>
+            <PropertyRef Name="id_ensamble" />
+          </Key>
+          <Property Name="id_ensamble" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pais" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gama">
+          <Key>
+            <PropertyRef Name="id_gama" />
+          </Key>
+          <Property Name="id_gama" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gama" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Celular_Color">
+          <End Role="Color" Type="Self.Color" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="id_color" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Celular_Ensamble">
+          <End Role="Ensamble" Type="Self.Ensamble" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ensamble">
+              <PropertyRef Name="id_ensamble" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_ensamble" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Celular_Gama">
+          <End Role="Gama" Type="Self.Gama" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gama">
+              <PropertyRef Name="id_gama" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_gama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TelefonosModelStoreContainer">
+          <EntitySet Name="Celular" EntityType="Self.Celular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ensamble" EntityType="Self.Ensamble" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gama" EntityType="Self.Gama" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Celular_Color" Association="Self.FK_Celular_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Celular_Ensamble" Association="Self.FK_Celular_Ensamble">
+            <End Role="Ensamble" EntitySet="Ensamble" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Celular_Gama" Association="Self.FK_Celular_Gama">
+            <End Role="Gama" EntitySet="Gama" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TelefonosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Celular">
+          <Key>
+            <PropertyRef Name="id_telefono" />
+          </Key>
+          <Property Name="id_telefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_gama" Type="Int32" Nullable="false" />
+          <Property Name="id_ensamble" Type="Int32" Nullable="false" />
+          <Property Name="id_color" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Color" Relationship="Self.FK_Celular_Color" FromRole="Celular" ToRole="Color" />
+          <NavigationProperty Name="Ensamble" Relationship="Self.FK_Celular_Ensamble" FromRole="Celular" ToRole="Ensamble" />
+          <NavigationProperty Name="Gama" Relationship="Self.FK_Celular_Gama" FromRole="Celular" ToRole="Gama" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="id_color" />
+          </Key>
+          <Property Name="id_color" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="color1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Celular" Relationship="Self.FK_Celular_Color" FromRole="Color" ToRole="Celular" />
+        </EntityType>
+        <EntityType Name="Ensamble">
+          <Key>
+            <PropertyRef Name="id_ensamble" />
+          </Key>
+          <Property Name="id_ensamble" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Celular" Relationship="Self.FK_Celular_Ensamble" FromRole="Ensamble" ToRole="Celular" />
+        </EntityType>
+        <EntityType Name="Gama">
+          <Key>
+            <PropertyRef Name="id_gama" />
+          </Key>
+          <Property Name="id_gama" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gama1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Celular" Relationship="Self.FK_Celular_Gama" FromRole="Gama" ToRole="Celular" />
+        </EntityType>
+        <Association Name="FK_Celular_Color">
+          <End Role="Color" Type="Self.Color" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="id_color" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_color" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Celular_Ensamble">
+          <End Role="Ensamble" Type="Self.Ensamble" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ensamble">
+              <PropertyRef Name="id_ensamble" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_ensamble" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Celular_Gama">
+          <End Role="Gama" Type="Self.Gama" Multiplicity="1" />
+          <End Role="Celular" Type="Self.Celular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gama">
+              <PropertyRef Name="id_gama" />
+            </Principal>
+            <Dependent Role="Celular">
+              <PropertyRef Name="id_gama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TelefonosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Celular" EntityType="Self.Celular" />
+          <EntitySet Name="Color" EntityType="Self.Color" />
+          <EntitySet Name="Ensamble" EntityType="Self.Ensamble" />
+          <EntitySet Name="Gama" EntityType="Self.Gama" />
+          <AssociationSet Name="FK_Celular_Color" Association="Self.FK_Celular_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Celular_Ensamble" Association="Self.FK_Celular_Ensamble">
+            <End Role="Ensamble" EntitySet="Ensamble" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Celular_Gama" Association="Self.FK_Celular_Gama">
+            <End Role="Gama" EntitySet="Gama" />
+            <End Role="Celular" EntitySet="Celular" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TelefonosModelStoreContainer" CdmEntityContainer="TelefonosEntities">
+          <EntitySetMapping Name="Celular">
+            <EntityTypeMapping TypeName="TelefonosModel.Celular">
+              <MappingFragment StoreEntitySet="Celular">
+                <ScalarProperty Name="id_telefono" ColumnName="id_telefono" />
+                <ScalarProperty Name="id_gama" ColumnName="id_gama" />
+                <ScalarProperty Name="id_ensamble" ColumnName="id_ensamble" />
+                <ScalarProperty Name="id_color" ColumnName="id_color" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Color">
+            <EntityTypeMapping TypeName="TelefonosModel.Color">
+              <MappingFragment StoreEntitySet="Color">
+                <ScalarProperty Name="id_color" ColumnName="id_color" />
+                <ScalarProperty Name="color1" ColumnName="color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ensamble">
+            <EntityTypeMapping TypeName="TelefonosModel.Ensamble">
+              <MappingFragment StoreEntitySet="Ensamble">
+                <ScalarProperty Name="id_ensamble" ColumnName="id_ensamble" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gama">
+            <EntityTypeMapping TypeName="TelefonosModel.Gama">
+              <MappingFragment StoreEntitySet="Gama">
+                <ScalarProperty Name="id_gama" ColumnName="id_gama" />
+                <ScalarProperty Name="gama1" ColumnName="gama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
